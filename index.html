@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta property="og:title" content="حفل زفاف زياد & سهيله">
+    <meta property="og:description" content="يسعدنا مشاركتكم فرحة عمرنا، ننتظر حضوركم الكريم">
+    <meta property="og:image" content="/linkimage.jpg">
+    <meta property="og:url" content="/">
+    <meta property="og:type" content="website">
+
+    <title>حفل زفاف زياد & سهيله</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #faf5f0;
+            min-height: 100vh;
+            overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .wrapper { position: relative; width: 100vw; height: 100vh; }
+
+        /* شاشة الظرف */
+        .envelope-screen {
+            position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 30; transition: opacity 1s ease; cursor: pointer;
+        }
+        .envelope-screen.opened { opacity: 0; pointer-events: none; }
+
+        /* إضافة الحركة للظرف */
+        .envelope-img { 
+            width: 100%; height: 100%; object-fit: cover; display: block; 
+            animation: pulse-animation 2s infinite ease-in-out;
+        }
+        @keyframes pulse-animation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        /* شاشة الانتظار */
+        .thank-you-screen {
+            position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
+            display: flex; flex-direction: column; justify-content: center;
+            align-items: center; background-color: #faf5f0; z-index: 20; text-align: center;
+        }
+        .music-control-btn {
+            background-color: #d89b8c; color: #ffffff; border: none;
+            border-radius: 50px; padding: 12px 30px; font-weight: 600; cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-piano" src="songwed.mp3" loop></audio>
+
+    <div class="wrapper">
+        <div class="envelope-screen" id="envelopeScreen" onclick="openEnvelope()">
+            <img src="envelope-closed.png" class="envelope-img" alt="اضغط لفتح الظرف">
+        </div>
+
+        <div class="thank-you-screen">
+            <h2 style="color:#564538; margin-bottom: 20px;">أهلاً بك في دعوتنا ✨</h2>
+            <button class="music-control-btn" onclick="toggleAudio()">
+                <span id="music-icon">⏸</span> <span id="music-label">إيقاف الموسيقى</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const bgAudio = document.getElementById('bg-piano');
+        let isMusicPlaying = false;
+
+        function openEnvelope() {
+            document.getElementById('envelopeScreen').classList.add('opened');
+            bgAudio.play().catch(e => console.log(e));
+            isMusicPlaying = true;
+
+            setTimeout(() => {
+                window.open("https://joyinvites.com/ziad-sohila", "_blank");
+            }, 800);
+        }
+
+        function toggleAudio() {
+            if (isMusicPlaying) { bgAudio.pause(); isMusicPlaying = false; }
+            else { bgAudio.play(); isMusicPlaying = true; }
+
+            const icon = document.getElementById('music-icon');
+            const label = document.getElementById('music-label');
+            icon.innerText = isMusicPlaying ? "⏸" : "▶️";
+            label.innerText = isMusicPlaying ? "إيقاف الموسيقى" : "تشغيل الموسيقى";
+        }
+    </script>
+</body>
+</html>
